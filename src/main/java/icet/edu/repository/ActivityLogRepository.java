@@ -1,4 +1,7 @@
 package icet.edu.repository;
 
-public interface ActivityLogRepository {
+import icet.edu.entity.ActivityLogEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ActivityLogRepository extends JpaRepository<ActivityLogEntity,Long> {
 }

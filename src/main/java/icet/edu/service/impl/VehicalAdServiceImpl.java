@@ -1,4 +1,3 @@
-
 package icet.edu.service.impl;
 
 import icet.edu.dto.VehicalAd;
@@ -14,10 +13,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class VehicalAdServiceImp implements VehicalAdService {
+public class VehicalAdServiceImpl implements VehicalAdService {
 
-    final VehicalAdRepository repository;
-    final ModelMapper mapper;
+    private final VehicalAdRepository repository;
+    private final ModelMapper mapper;
 
     @Override
     public void saveAd(VehicalAd ad) {
@@ -26,7 +25,9 @@ public class VehicalAdServiceImp implements VehicalAdService {
 
     @Override
     public void updateAd(Long id, VehicalAd updatedAd) {
-        repository.save(mapper.map(updatedAd, VehicalAdEntity.class));
+        VehicalAdEntity entity = mapper.map(updatedAd, VehicalAdEntity.class);
+        entity.setId(id); // Ensure update targets correct entity
+        repository.save(entity);
     }
 
     @Override
@@ -40,14 +41,17 @@ public class VehicalAdServiceImp implements VehicalAdService {
 
     @Override
     public VehicalAd getById(Long id) {
-        return mapper.map(repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vehicle ad not found with id: " + id)), VehicalAd.class);
+        return mapper.map(
+                repository.findById(id)
+                        .orElseThrow(() -> new RuntimeException("Vehicle ad not found with id: " + id)),
+                VehicalAd.class
+        );
     }
 
     @Override
     public List<VehicalAd> getAll() {
-        List<VehicalAd> list = new ArrayList<>();
-        repository.findAll().forEach(entity -> list.add(mapper.map(entity, VehicalAd.class)));
-        return list;
+        List<VehicalAd> ads = new ArrayList<>();
+        repository.findAll().forEach(entity -> ads.add(mapper.map(entity, VehicalAd.class)));
+        return ads;
     }
 }

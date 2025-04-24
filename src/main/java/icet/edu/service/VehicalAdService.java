@@ -1,13 +1,13 @@
 package icet.edu.service;
 
-import icet.edu.dto.VehicleAd;
+import icet.edu.dto.VehicalAd;
 
 import java.util.List;
 
 public interface VehicalAdService {
-    void saveCarAd(VehicleAd ad);
-    VehicleAd getById(Long id);
-    List<VehicleAd> getAll();
-    void updateAd(Long id, VehicleAd updatedAd);
+    void saveAd(VehicalAd ad);
+    void updateAd(Long id, VehicalAd updatedAd);
     void deleteAd(Long id);
+    VehicalAd getById(Long id);
+    List<VehicalAd> getAll();
 }

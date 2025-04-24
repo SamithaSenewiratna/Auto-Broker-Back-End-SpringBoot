@@ -1,6 +1,6 @@
 package icet.edu.controller;
 
-import icet.edu.dto.VehicleAd;
+import icet.edu.dto.VehicalAd;
 import icet.edu.service.VehicalAdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,33 +9,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/car-ads")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
-
 public class VehicalAdController {
 
-   final VehicalAdService service;
+    private final VehicalAdService service;
 
     @PostMapping("/add")
-    public String create(@RequestBody VehicleAd vehicalAd) {
-       service.saveCarAd(vehicalAd);
-       return "add sucess";
+    public String create(@RequestBody VehicalAd ad) {
+        service.saveAd(ad);
+        return "Ad added successfully";
     }
 
-
-    @GetMapping("getById/{id}")
-    public VehicleAd getById(@PathVariable Long id) {
-        VehicleAd ad = service.getById(id);
-        return ad ;
+    @GetMapping("/{id}")
+    public VehicalAd getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @GetMapping
-    public List<VehicleAd> getAll() {
+    public List<VehicalAd> getAll() {
         return service.getAll();
     }
 
     @PutMapping("/update/{id}")
-    public String update(@PathVariable Long id, @RequestBody VehicleAd updatedAd) {
+    public String update(@PathVariable Long id, @RequestBody VehicalAd updatedAd) {
         service.updateAd(id, updatedAd);
         return "Ad updated successfully";
     }
@@ -45,5 +42,4 @@ public class VehicalAdController {
         service.deleteAd(id);
         return "Ad deleted successfully";
     }
-
 }

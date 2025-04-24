@@ -1,4 +1,7 @@
 package icet.edu.repository;
 
-public interface SparePartAdRepository {
+import icet.edu.entity.SparePartAdEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SparePartAdRepository extends JpaRepository<SparePartAdEntity, Long> {
 }
