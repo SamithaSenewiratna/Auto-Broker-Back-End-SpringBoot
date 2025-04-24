@@ -29,6 +29,7 @@ public class VehicleAd {
     private String createdAt; // or LocalDateTime createdAt;
     private List<String> images;
 
+    private Long userId; // This connects to UserEntity
 
 
 }

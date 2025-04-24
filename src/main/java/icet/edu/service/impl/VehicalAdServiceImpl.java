@@ -1,70 +1,53 @@
+
 package icet.edu.service.impl;
-import icet.edu.dto.VehicleAd;
+
+import icet.edu.dto.VehicalAd;
 import icet.edu.entity.VehicalAdEntity;
 import icet.edu.repository.VehicalAdRepository;
 import icet.edu.service.VehicalAdService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import java.time.LocalDateTime;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
-public class VehicalAdServiceImpl implements VehicalAdService {
+public class VehicalAdServiceImp implements VehicalAdService {
 
-
-    private final VehicalAdRepository repository;
-    private  final ModelMapper mapper ;
+    final VehicalAdRepository repository;
+    final ModelMapper mapper;
 
     @Override
-    public void saveCarAd(VehicleAd ad) {
-          ad.setCreatedAt(String.valueOf(LocalDateTime.now()));
-          repository.save(mapper.map(ad, VehicalAdEntity.class));
-
+    public void saveAd(VehicalAd ad) {
+        repository.save(mapper.map(ad, VehicalAdEntity.class));
     }
 
     @Override
-    public VehicleAd getById(Long id) {
-        VehicalAdEntity entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vehicle Ad not found with id: " + id));
-        return mapper.map(entity, VehicleAd.class);
-    }
-
-    @Override
-    public List<VehicleAd> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(ad -> mapper.map(ad, VehicleAd.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void updateAd(Long id, VehicleAd updatedAd) {
-        VehicalAdEntity existingEntity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vehicle Ad not found with id: " + id));
-
-        // Update fields
-        existingEntity.setTitle(updatedAd.getTitle());
-        existingEntity.setDescription(updatedAd.getDescription());
-        existingEntity.setPrice(updatedAd.getPrice());
-        existingEntity.setBrand(updatedAd.getBrand());
-        existingEntity.setModel(updatedAd.getModel());
-        existingEntity.setImageUrl(updatedAd.getImageUrl());
-        existingEntity.setLocation(updatedAd.getLocation());
-        existingEntity.setYear(updatedAd.getYear());
-        existingEntity.setFualType(updatedAd.getFualType());
-        existingEntity.setTransmission(updatedAd.getTransmission());
-        existingEntity.setEngineCapacity(updatedAd.getEngineCapacity());
-        existingEntity.setCondition(updatedAd.getCondition());
-        existingEntity.setMileage(updatedAd.getMileage());
-        existingEntity.setContact(updatedAd.getContact());
-        existingEntity.setImages(updatedAd.getImages());
-
-        repository.save(existingEntity);
+    public void updateAd(Long id, VehicalAd updatedAd) {
+        repository.save(mapper.map(updatedAd, VehicalAdEntity.class));
     }
 
     @Override
     public void deleteAd(Long id) {
-       repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new RuntimeException("Vehicle ad not found with id: " + id);
+        }
+    }
+
+    @Override
+    public VehicalAd getById(Long id) {
+        return mapper.map(repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle ad not found with id: " + id)), VehicalAd.class);
+    }
+
+    @Override
+    public List<VehicalAd> getAll() {
+        List<VehicalAd> list = new ArrayList<>();
+        repository.findAll().forEach(entity -> list.add(mapper.map(entity, VehicalAd.class)));
+        return list;
     }
 }
