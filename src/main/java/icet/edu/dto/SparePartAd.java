@@ -3,7 +3,6 @@ package icet.edu.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Data
@@ -17,12 +16,11 @@ public class SparePartAd {
     private String title;
     private String description;
     private double price;
-    private String imageUrl; // optional main image
     private String location;
     private String year;
     private String condition;
     private String contact;
-    private String createdAt; // or LocalDateTime createdAt;
+    private String createdAt;
     private List<String> images;
 
     private Long userId;

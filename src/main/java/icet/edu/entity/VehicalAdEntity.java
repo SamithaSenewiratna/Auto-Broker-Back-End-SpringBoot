@@ -28,7 +28,7 @@ public class VehicalAdEntity {
     private String fuelType;
     private String transmission;
     private String engineCapacity;
-    private String itemCondition; // or vehicleCondition, partCondition, etc.
+    private String itemCondition;
 
     private String mileage;
     private String contact;

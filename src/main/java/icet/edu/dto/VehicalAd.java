@@ -22,7 +22,7 @@ public class VehicalAd {
     private String fuelType;
     private String transmission;
     private String engineCapacity;
-    private String condition;
+    private String itemCondition;
     private String mileage;
     private String contact;
     private String createdAt;

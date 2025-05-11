@@ -26,7 +26,7 @@ public class VehicalAdServiceImpl implements VehicalAdService {
     @Override
     public void updateAd(Long id, VehicalAd updatedAd) {
         VehicalAdEntity entity = mapper.map(updatedAd, VehicalAdEntity.class);
-        entity.setId(id); // Ensure update targets correct entity
+        entity.setId(id);
         repository.save(entity);
     }
 

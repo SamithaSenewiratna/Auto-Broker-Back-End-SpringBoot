@@ -23,7 +23,6 @@ public class SparePartAdEntity {
     private String title;
     private String description;
     private double price;
-    private String imageUrl; // optional main image
     private String location;
     private String year;
     @Column(name = "condition_type")
@@ -32,7 +31,8 @@ public class SparePartAdEntity {
     private String contact;
     private String createdAt;
 
-
+    @Convert(converter = StringListConverter.class)
+    @Column(columnDefinition = "LONGTEXT")
     private List<String> images;
 
     @ManyToOne

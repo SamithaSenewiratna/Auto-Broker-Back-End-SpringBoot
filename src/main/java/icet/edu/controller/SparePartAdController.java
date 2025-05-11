@@ -23,7 +23,7 @@ public class SparePartAdController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateSparePartAd(@PathVariable Long id, @RequestBody SparePartAd updatedAd) {
-        updatedAd.setId(id); // Ensure the ID is set for update
+        updatedAd.setId(id);
         service.updateAd(id, updatedAd);
         return ResponseEntity.ok().build();
     }
