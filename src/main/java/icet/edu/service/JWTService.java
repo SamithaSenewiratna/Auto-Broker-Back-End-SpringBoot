@@ -1,14 +1,14 @@
 package icet.edu.service;
 
-import icet.edu.entity.UserEntity; // Assuming this is your UserEntity
-import icet.edu.repository.UserRepository; // Assuming you need to fetch the user from the repository
+import icet.edu.entity.UserEntity;
+import icet.edu.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +19,9 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JWTService {
 
-    private final String SECRET_KEY = "your_secret_key";
+    private final String SECRET_KEY = "AutoBrokerageSystewdgwvd523425342532mSecretKeyForJWTGeneration"; // Use a secure key in production
     private final UserRepository userRepository;
+
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
@@ -48,7 +49,6 @@ public class JWTService {
     }
 
 
-
     private boolean isTokenExpired(String token) {
         Date expiration = Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY.getBytes())
@@ -61,10 +61,8 @@ public class JWTService {
 
 
     public UsernamePasswordAuthenticationToken getAuthentication(String email) {
-
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-
 
         UserDetails userDetails = new User(userEntity.getEmail(), userEntity.getPassword(), new ArrayList<>());
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
