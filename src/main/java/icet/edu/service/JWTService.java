@@ -19,7 +19,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JWTService {
 
-    private final String SECRET_KEY = "AutoBrokerageSystewdgwvd523425342532mSecretKeyForJWTGeneration"; // Use a secure key in production
+    private final String SECRET_KEY = "AutoBrokerageSystewdgwvd523425342532mSecretKeyForJWTGeneration";
     private final UserRepository userRepository;
 
 
