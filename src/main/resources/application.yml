@@ -1,6 +1,6 @@
 spring :
   datasource:
-    url: jdbc:mysql://localhost:3306/Auto_Broker?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/Auto_Broker-new?createDatabaseIfNotExist=true
     username: root
     password: 1234
 

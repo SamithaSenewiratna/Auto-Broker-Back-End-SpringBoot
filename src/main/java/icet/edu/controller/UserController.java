@@ -1,45 +1,47 @@
 package icet.edu.controller;
 
-import icet.edu.dto.User;
+
+import icet.edu.dto.UserRequest;
+
+import icet.edu.dto.UserResponse;
 import icet.edu.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+    private final UserService userService;
 
     @PostMapping("/add")
-    public String create(@RequestBody User user) {
-        service.saveUser(user);
-        return "User added successfully";
-    }
-
-    @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
-        return service.getUser(id);
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest request) {
+        return ResponseEntity.ok(userService.createUser(request));
     }
 
     @GetMapping
-    public List<User> getAll() {
-        return service.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/update/{id}")
-    public String update(@PathVariable Long id, @RequestBody User updatedUser) {
-        service.updateUser(id, updatedUser);
-        return "User updated successfully";
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
+        return ResponseEntity.ok(userService.updateUser(id, request));
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        service.deleteUser(id);
-        return "User deleted successfully";
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 }

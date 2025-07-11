@@ -1,13 +1,14 @@
 package icet.edu.service;
 
-import icet.edu.dto.User;
 
+import icet.edu.dto.UserRequest;
+import icet.edu.dto.UserResponse;
 import java.util.List;
 
 public interface UserService {
-    void saveUser(User dto);
-    User getUser(Long id);
-    List<User> getAllUsers();
-    void updateUser(Long id, User dto);
+    UserResponse createUser(UserRequest request);
+    List<UserResponse> getAllUsers();
+    UserResponse getUserById(Long id);
+    UserResponse updateUser(Long id, UserRequest request);
     void deleteUser(Long id);
 }
